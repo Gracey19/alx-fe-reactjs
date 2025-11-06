@@ -97,3 +97,15 @@ npm run dev
 cd alx-fe-reactjs/alx-react-app
 npm run dev
 
+
+
+
+# ✅ Task 3 – Create a User Profile Card Using Props
+
+## What I Did
+- Created `UserProfile.jsx` inside `src/components`
+- Used props to pass name, age, and bio
+- Rendered the component inside `App.jsx` with:
+  ```jsx
+  <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
+
