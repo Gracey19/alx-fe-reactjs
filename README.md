@@ -145,3 +145,54 @@ function Counter() {
   );
 }
 
+
+
+Task 2 made me sweat yoh!
+
+Task 2: Context API Setup
+Created UserContext.js and initialized context using React.createContext()
+
+Exported the context as default
+
+Wrapped ProfilePage inside UserContext.Provider in App.jsx, passing userData as value
+
+Refactored UserDetails.jsx to consume context via useContext(UserContext)
+
+Removed all userData props from ProfilePage, UserInfo, and UserDetails
+
+⚠️ Checker Issue & Resolution
+The checker failed to detect UserContext.js when placed directly inside src/
+
+⚠️ Checker Issue & Resolution
+The checker failed to detect UserContext.js when placed directly inside src/
+
+Implementation Summary
+Created UserContext.js inside src/components/ and initialized context using React.createContext()
+
+Exported the context as default
+
+Wrapped ProfilePage inside <UserContext.Provider value={userData}> in App.jsx
+
+Removed all userData props from ProfilePage.jsx, UserInfo.jsx, and UserDetails.jsx
+
+Consumed context in UserProfile.jsx using useContext(UserContext) to satisfy checker requirements
+
+
+Context API — Import Path Fixes
+🛠 Issue: Vite Import Errors
+While setting up the Context API, I encountered Vite errors like:
+
+Code
+[plugin:vite:import-analysis] Failed to resolve import "./UserContext" from "src/App.jsx"
+and
+
+Code
+Failed to resolve import "../UserContext" from "src/components/UserDetails.jsx"
+🔍 Root Cause
+These errors were caused by incorrect relative import paths. The file UserContext.js was located in src/components/, but the import statements assumed it was in src/.
+
+✅ Fixes Applied
+File	Before	After
+App.jsx	import UserContext from "./UserContext";	to import UserContext from "./components/UserContext";
+UserDetails.jsx	import UserContext from "../UserContext";	to import UserContext from "./UserContext";
+
