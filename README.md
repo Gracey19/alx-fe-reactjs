@@ -108,4 +108,40 @@ npm run dev
 - Rendered the component inside `App.jsx` with:
   ```jsx
   <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
+  
+
+
+# Task 1: Counter App Using useState
+
+## Overview
+This task builds on Task 0 by introducing React state management using the `useState` hook. I created a simple counter component that can increment, decrement, and reset a number.
+
+## What I Learned from Task 0
+- How to create and style React components (`Header`, `MainContent`, `UserProfile`, `Footer`)
+- How to use inline CSS for visual clarity
+- How to pass props to components and display dynamic content
+- How to structure a React app using reusable components
+- How to push commits to GitHub and pass ALX checkers
+
+## What I Did in Task 1
+- Created a new `Counter.jsx` component
+- Imported and used the `useState` hook
+- Added three buttons with `onClick` handlers for increment, decrement, and reset
+- Styled the counter using inline CSS
+- Integrated the counter into `App.jsx`
+
+## Code Snippet
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ textAlign: 'center', padding: '20px' }}>
+      <p style={{ fontSize: '24px' }}>Current Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+}
 
