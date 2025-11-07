@@ -196,3 +196,24 @@ File	Before	After
 App.jsx	import UserContext from "./UserContext";	to import UserContext from "./components/UserContext";
 UserDetails.jsx	import UserContext from "../UserContext";	to import UserContext from "./UserContext";
 
+
+
+Finally Task 3! All  i can say is react is amazing! I'm proud of what i have been able to do
+
+Implementation Summary
+Set up project using Vite: my-company
+
+Installed React Router: npm install react-router-dom
+
+Created components:
+
+Home.jsx, About.jsx, Services.jsx, Contact.jsx
+
+Navbar.jsx for navigation
+
+Implemented routing in App.jsx using BrowserRouter, Routes, and Route
+
+Styled all components using inline CSS
+
+Added a contact form with useState to manage form data
+
