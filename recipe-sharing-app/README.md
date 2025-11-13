@@ -52,3 +52,53 @@ The app uses Zustand to manage the list of recipes. The store includes:
    git clone https://github.com/Gracey19/recipe-sharing-app.git
    cd recipe-sharing-app
 
+# Recipe Sharing App
+
+This is a React + Vite application for sharing recipes. Users can add, view, search, favorite, and receive personalized recommendations for recipes. State management is handled using Zustand.
+
+## 🚀 Features
+
+- ✅ Add new recipes with title and description
+- ✅ View all submitted recipes
+- ✅ View individual recipe details via dynamic routing
+- ✅ Edit and delete existing recipes
+- ✅ Search and filter recipes by title
+- ✅ Mark recipes as favorites
+- ✅ View personalized recipe recommendations based on favorites
+
+## 🛠️ Technologies Used
+
+- React (via Vite)
+- Zustand (for global state)
+- React Router DOM (for navigation)
+- JavaScript
+- CSS (for styling)
+
+## 📦 Project Structure
+
+
+
+
+## 🧠 Zustand Store
+
+The Zustand store manages all global state:
+
+- `recipes`: array of recipe objects
+- `filteredRecipes`: recipes matching the current search term
+- `favorites`: array of recipe IDs marked as favorites
+- `recommendations`: array of recommended recipes
+- `addRecipe(newRecipe)`: adds a new recipe
+- `updateRecipe(updatedRecipe)`: updates an existing recipe
+- `deleteRecipe(id)`: removes a recipe
+- `setSearchTerm(term)`: updates the search term
+- `addFavorite(recipeId)`: adds a recipe to favorites
+- `removeFavorite(recipeId)`: removes a recipe from favorites
+- `generateRecommendations()`: creates a mock list of recommended recipes based on favorites
+
+## 🧪 How to Run the App
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Gracey19/recipe-sharing-app.git
+   cd recipe-sharing-app
+
