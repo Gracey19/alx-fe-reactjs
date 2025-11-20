@@ -65,11 +65,17 @@ export default function Search() {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>Looks like we cant find the user</p>}
+      {error && <p className="text-red-600">{error}</p>}
+
       <div className="mt-4 space-y-2">
         {users.map((user) => (
           <div key={user.id} className="border p-2 rounded">
-            <img src={user.avatar_url} alt={user.login} width="50" />
+            <img
+              src={user.avatar_url}
+              alt={`${user.login} avatar`}
+              className="w-20 h-20 rounded"
+              loading="lazy"
+            />
             <p>{user.login}</p>
             <a href={user.html_url} target="_blank" rel="noreferrer">
               View Profile
