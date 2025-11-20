@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { advancedSearchUsers } from "../services/githubService";
+import { fetchUserData, advancedSearchUsers } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
@@ -15,15 +15,22 @@ export default function Search() {
     setError("");
     setUsers([]);
 
-    try {
-      const data = await advancedSearchUsers(username, location, minRepos);
-      setUsers(data);
-    } catch (err) {
-      setError("Looks like we cant find the user");
-    } finally {
-      setLoading(false);
-    }
+   try {
+  if (location || minRepos) {
+    // Advanced search (Task 2)
+    const data = await advancedSearchUsers(username, location, minRepos);
+    setUsers(data);
+  } else {
+    // Basic search (Task 1 requirement)
+    const userData = await fetchUserData(username);
+    setUsers([userData]); // wrap in array so it displays like your advanced results
   }
+} catch (err) {
+  setError("Looks like we cant find the user");
+} finally {
+  setLoading(false);
+}
+}
 
   return (
     <div className="p-4 max-w-md mx-auto">
