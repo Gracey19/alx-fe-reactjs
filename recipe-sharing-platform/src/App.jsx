@@ -1,13 +1,22 @@
 // src/App.jsx
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
-// Remove or comment out any previous placeholder content
+import RecipeDetail from './components/RecipeDetail'; // Imports the component we are creating next
 
 function App() {
   return (
-    // You can apply global padding or styling here if needed
-    <div className="min-h-screen bg-gray-100">
-      <HomePage />
-    </div>
+    // Uses <Router> exactly as specified in the prompt
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <Routes>
+          {/* Route for the Home Page */}
+          <Route path="/" element={<HomePage />} />
+          
+          {/* Route for the Recipe Detail Page, using the ID parameter */}
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

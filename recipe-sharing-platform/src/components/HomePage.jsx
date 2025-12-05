@@ -1,4 +1,6 @@
 // src/components/HomePage.jsx
+import { Link } from 'react-router-dom';
+
 import React, { useState, useEffect } from 'react';
 // Import the JSON file directly
 import recipeData from '../data.json';
@@ -58,15 +60,15 @@ const RecipeCard = ({ recipe }) => (
       </p>
 
       {/* Link to Detail (placeholder for now) */}
-      <a 
-        href={`/recipe/${recipe.id}`} // Placeholder link
+      <Link 
+       to={`/recipe/${recipe.id}`} // Uses the Link component for client-side routing
         className="inline-block bg-blue-600 text-white text-center 
                    py-2 px-4 rounded-full font-semibold 
                    hover:bg-blue-700 transition duration-150"
-        onClick={(e) => { e.preventDefault(); console.log('Viewing recipe:', recipe.id); }}
       >
-        View Recipe
-      </a>
+       View Recipe
+      </Link>
+
     </div>
   </div>
 );
