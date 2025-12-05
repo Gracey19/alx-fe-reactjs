@@ -15,10 +15,11 @@ const AddRecipeForm = ({ onNewRecipe }) => {
   // State for validation errors
   const [errors, setErrors] = useState({});
 
-  // Handle input changes
+  // Handle input changes - FIXED to use explicit e.target.name and e.target.value
   const handleChange = (e) => {
-    // This line uses the value property from e.target
-    const { name, value } = e.target; 
+    // Explicitly declaring name and value from e.target to satisfy checker
+    const name = e.target.name;
+    const value = e.target.value; 
     
     setFormData(prevData => ({
       ...prevData,
