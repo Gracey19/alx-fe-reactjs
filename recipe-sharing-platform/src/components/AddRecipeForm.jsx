@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 
 const AddRecipeForm = ({ onNewRecipe }) => {
-  // 1. State to store form data
+  // State to store form data
   const [formData, setFormData] = useState({
     title: '',
     ingredients: '',
     instructions: '',
-    // Optional fields for completeness, based on recipe structure:
     cuisine: '', 
     prepTime: '',
     cookTime: '',
-    image: 'https://via.placeholder.com/600x400?text=New+Recipe', // Placeholder image
+    image: 'https://placehold.co/600x400/94A3B8/FFFFFF?text=New+Recipe', // Placeholder image
   });
 
-  // 2. State for validation errors
+  // State for validation errors
   const [errors, setErrors] = useState({});
 
-  // 3. Handle input changes
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    // This line uses the value property from e.target
+    const { name, value } = e.target; 
+    
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  // 4. Implement Form Validation Logic
+  // Implement Form Validation Logic
   const validate = () => {
     const newErrors = {};
     
@@ -36,7 +37,6 @@ const AddRecipeForm = ({ onNewRecipe }) => {
     if (!formData.ingredients.trim()) {
       newErrors.ingredients = 'Ingredients list is required.';
     } else {
-      // Example advanced validation: check for at least two ingredients (separated by newlines)
       const ingredientCount = formData.ingredients.split('\n').filter(i => i.trim() !== '').length;
       if (ingredientCount < 2) {
         newErrors.ingredients = 'Please list at least two ingredients.';
@@ -47,37 +47,33 @@ const AddRecipeForm = ({ onNewRecipe }) => {
       newErrors.instructions = 'Preparation steps are required.';
     }
 
-    // Optional fields validation
     if (!formData.cuisine.trim()) {
       newErrors.cuisine = 'Cuisine is required.';
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if valid
+    return Object.keys(newErrors).length === 0;
   };
 
-  // 5. Handle Form Submission
+  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      // Logic to process the new recipe data
       const newRecipe = {
-        id: Date.now(), // Use timestamp for a unique ID
+        id: Date.now(),
         title: formData.title,
         cuisine: formData.cuisine,
         prepTime: formData.prepTime || 'N/A',
         cookTime: formData.cookTime || 'N/A',
-        // Convert textarea strings to arrays for data consistency
         ingredients: formData.ingredients.split('\n').filter(i => i.trim() !== ''),
         instructions: formData.instructions.split('\n').filter(i => i.trim() !== ''),
         image: formData.image,
       };
 
-      // In a real app, you would send this to a backend API.
-      // For this task, we call a prop function to handle the new recipe.
       onNewRecipe(newRecipe); 
 
-      // Clear the form fields after successful submission
+      // Clear the form
+      console.log(`Recipe "${newRecipe.title}" submitted successfully!`);
       setFormData({
         title: '',
         ingredients: '',
@@ -85,11 +81,10 @@ const AddRecipeForm = ({ onNewRecipe }) => {
         cuisine: '', 
         prepTime: '',
         cookTime: '',
-        image: 'https://via.placeholder.com/600x400?text=New+Recipe',
+        image: 'https://placehold.co/600x400/94A3B8/FFFFFF?text=New+Recipe',
       });
-      alert(`Recipe "${newRecipe.title}" submitted successfully!`);
     } else {
-      console.log('Form has validation errors.');
+      console.log('Form submission blocked due to validation errors.');
     }
   };
 
@@ -99,7 +94,6 @@ const AddRecipeForm = ({ onNewRecipe }) => {
         🍽️ Submit Your Recipe
       </h2>
 
-      {/* 6. Form Structure and Responsive Tailwind Styling */}
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-xl rounded-lg space-y-6">
         
         {/* Title and Cuisine (Responsive Grid) */}
