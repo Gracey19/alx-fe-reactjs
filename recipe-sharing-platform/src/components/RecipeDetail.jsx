@@ -1,19 +1,16 @@
 // src/components/RecipeDetail.jsx
-import React, { useState, useEffect } from 'react'; // <-- IMPORT useEffect
+import React, { useState, useEffect } from 'react'; 
 import { useParams, Link } from 'react-router-dom';
 import recipeData from '../data.json'; 
 
 const RecipeDetail = () => {
   const { id } = useParams();
-  // 1. Use useState to store the recipe data
   const [recipe, setRecipe] = useState(null); 
 
-  // 2. Use useEffect to find and set the recipe when the component mounts or the ID changes
   useEffect(() => {
-    // Find the recipe matching the ID
     const foundRecipe = recipeData.find(r => r.id === parseInt(id));
     setRecipe(foundRecipe);
-  }, [id]); // <-- Dependency array ensures it re-runs if the URL 'id' changes
+  }, [id]);
 
   if (!recipe) {
     return (
@@ -26,15 +23,55 @@ const RecipeDetail = () => {
     );
   }
 
-  // The rest of your component's JSX remains the same, 
-  // using the 'recipe' variable from state.
+  // --- JSX for displaying the recipe details ---
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-10 max-w-5xl">
-      {/* ... rest of the RecipeDetail JSX using the 'recipe' object ... */}
-      <Link to="/" className="text-blue-600 hover:text-blue-800 transition mb-6 inline-block font-semibold">
+      
+      {/* Back Link */}
+      <Link 
+        to="/" 
+        className="text-blue-600 hover:text-blue-800 transition mb-6 inline-block font-semibold"
+      >
         &larr; Back to Recipes
       </Link>
-      {/* ... the rest of the styled divs for image, ingredients, and instructions ... */}
+
+      {/* Recipe Header (Image and Title) - USED shadow-lg HERE */}
+      <div className="bg-white **shadow-lg** rounded-xl overflow-hidden mb-8">
+        <img 
+          src={recipe.image} 
+          alt={recipe.title} 
+          className="w-full h-80 object-cover" 
+        />
+        <div className="p-6">
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">{recipe.title}</h1>
+          <p className="text-gray-600 text-lg">Cuisine: **{recipe.cuisine}**</p>
+          <p className="text-gray-600 text-lg">Prep Time: **{recipe.prepTime}**</p>
+          <p className="text-gray-600 text-lg">Cook Time: **{recipe.cookTime}**</p>
+        </div>
+      </div>
+
+      {/* Ingredients Section - USED shadow-md HERE */}
+      <div className="bg-white **shadow-md** rounded-xl p-6 mb-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">Ingredients</h2>
+        <ul className="list-disc list-inside space-y-2 text-lg text-gray-700">
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Instructions Section - USED shadow-md HERE */}
+      <div className="bg-white **shadow-md** rounded-xl p-6">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4 border-b pb-2">Instructions</h2>
+        <ol className="list-decimal list-inside space-y-4 text-lg text-gray-700">
+          {recipe.instructions.map((step, index) => (
+            <li key={index} className="pl-2">
+              <span className="font-semibold text-gray-900">Step {index + 1}:</span> {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+      
     </div>
   );
 };
