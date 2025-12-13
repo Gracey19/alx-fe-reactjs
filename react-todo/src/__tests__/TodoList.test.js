@@ -1,33 +1,33 @@
+import React from 'react'; 
+// 🟢 FIX: Added fireEvent for simulating clicks and changes
 import { render, screen, fireEvent } from '@testing-library/react';
-// Import this to enable expect(...).toHaveStyle(), etc.
 import '@testing-library/jest-dom'; 
 
-// CRITICAL FIX 1: Correct the import path to the new 'components' folder
 import TodoList from '../components/TodoList';
 
-// CRITICAL FIX 2: Use the required describe block and specific test names
 describe('TodoList Component', () => {
     
+  // 1. Initial Render Test
   test('renders TodoList component', () => {
     render(<TodoList />);
-    // Checks for the heading 'My Tasks'
     expect(screen.getByText('My Tasks')).toBeInTheDocument(); 
   });
 
-  test('displays initial todos', () => {
+  // 2. Initial State Test
+  test('Ensure that the initial state (a few demo todos) is rendered.', () => {
     render(<TodoList />);
-    // Checks for the 3 hardcoded initial items defined in the component
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
     expect(screen.getByText('Write Tests')).toBeInTheDocument();
   });
 
-  test('adds a new todo', () => {
+  // 3. Test Adding Todos
+  test('Test Adding Todos: verifies that a new todo can be added.', () => {
     render(<TodoList />);
-    // CRITICAL FIX 3: Use data-testid selector for the input and button
+    
     const input = screen.getByTestId('todo-input');
     const button = screen.getByTestId('add-button');
-    const taskName = 'New Test Task';
+    const taskName = 'A new test task!';
 
     fireEvent.change(input, { target: { value: taskName } });
     fireEvent.click(button);
@@ -35,37 +35,34 @@ describe('TodoList Component', () => {
     expect(screen.getByText(taskName)).toBeInTheDocument();
   });
 
-  test('toggles todo completion', () => {
+  // 4. Test Toggling Todos (FIXED)
+  test('Test Toggling Todos: verifies that a todo item can be toggled.', () => {
     render(<TodoList />);
     
-    // CRITICAL FIX 4: Uses the data-testid from the <span> element
+    // 1. Find the text/span element
     const todoTexts = screen.getAllByTestId('todo-text');
-    const firstTodo = todoTexts[0];
-    
-    // Find the closest list item to check the style change
-    const firstTodoItem = firstTodo.closest('li'); 
+    const firstTodo = todoTexts[0]; // This is the <span> element with the style
 
-    expect(firstTodoItem).toHaveStyle('text-decoration: none');
+    // 2. Check the initial state on the correct element (the <span>)
+    expect(firstTodo).toHaveStyle('text-decoration: none'); 
     
-    // Clicks the span to toggle the state
+    // 3. Simulate clicking the item text
     fireEvent.click(firstTodo); 
     
-    expect(firstTodoItem).toHaveStyle('text-decoration: line-through');
+    // 4. Check the final state on the correct element (the <span>)
+    expect(firstTodo).toHaveStyle('text-decoration: line-through');
   });
 
-  test('deletes a todo', () => {
+  // 5. Test Deleting Todos
+  test('Test Deleting Todos: verifies that a todo item can be deleted.', () => {
     render(<TodoList />);
     
-    // CRITICAL FIX 5: Uses the data-testid for the delete button
     const deleteButtons = screen.getAllByTestId('delete-button');
     
-    // Check that one of the initial items is present
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     
-    // Click the delete button for the first item
     fireEvent.click(deleteButtons[0]);
     
-    // Item should be gone
     expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
   });
 });
