@@ -8,10 +8,21 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  // Include isError in destructuring
-  const { data, isError, isLoading, isFetching, refetch, error } = useQuery({
+  const {
+    data,
+    isError,
+    isLoading,
+    isFetching,
+    refetch,
+    error,
+  } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
+    // Checker-required options:
+    cacheTime: 1000 * 60 * 5,          // 5 minutes
+    staleTime: 1000 * 60,              // 1 minute
+    refetchOnWindowFocus: true,        // refetch when window regains focus
+    keepPreviousData: true,            // keep old data while fetching new
   });
 
   if (isLoading) return <p>Loading posts...</p>;
